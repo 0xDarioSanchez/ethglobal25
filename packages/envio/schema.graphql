@@ -1,0 +1,52 @@
+type MockPYUSD_Approval {
+  id: ID!
+  owner: String!
+  spender: String!
+  value: BigInt!
+}
+
+type MockPYUSD_Transfer {
+  id: ID!
+  from: String!
+  to: String!
+  value: BigInt!
+}
+
+type MockAavePool_Supplied {
+  id: ID!
+  asset: String!
+  amount: BigInt!
+  onBehalfOf: String!
+}
+
+type MockAavePool_Withdrawn {
+  id: ID!
+  asset: String!
+  amount: BigInt!
+  to: String!
+}
+
+type ProtocolContract_DisputeCreated {
+  id: ID!
+  disputeId: BigInt!
+  requester: String!
+  contractAddress: String!
+}
+
+type ProtocolContract_DisputeResolved {
+  id: ID!
+  disputeId: BigInt!
+  winner: String!
+}
+
+type ProtocolContract_JudgeRegistered {
+  id: ID!
+  judge: String!
+}
+
+type FactoryContract_MarketplaceDeployed {
+  id: ID!
+  marketplace: String!
+  creator: String!
+}
+

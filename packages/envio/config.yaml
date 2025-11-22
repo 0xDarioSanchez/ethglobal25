@@ -1,0 +1,77 @@
+name: envio-indexer
+contracts:
+  - name: MockPYUSD
+    handler: src/EventHandlers.ts
+    events:
+      - event: Approval(address indexed owner, address indexed spender, uint256 value)
+      - event: Transfer(address indexed from, address indexed to, uint256 value)
+  - name: MockAavePool
+    handler: src/EventHandlers.ts
+    events:
+      - event: Supplied(address asset, uint256 amount, address onBehalfOf)
+      - event: Withdrawn(address asset, uint256 amount, address to)
+  - name: ProtocolContract
+    handler: src/EventHandlers.ts
+    events:
+      - event: DisputeCreated(uint256 indexed disputeId, address indexed requester, address indexed contractAddress)
+      - event: DisputeResolved(uint256 indexed disputeId, address winner)
+      - event: JudgeRegistered(address indexed judge)
+  - name: FactoryContract
+    handler: src/EventHandlers.ts
+    events:
+      - event: MarketplaceDeployed(address indexed marketplace, address indexed creator)
+  - name: MarketplaceInstance
+    handler: src/EventHandlers.ts
+    events:
+      - event: UserRegistered(address indexed user, bool isPayer, bool isBeneficiary, bool isJudge)
+      - event: DealCreated(uint64 indexed dealId, address indexed payer, address indexed beneficiary, uint256 amount)
+      - event: DealAccepted(uint64 indexed dealId)
+      - event: DealRejected(uint64 indexed dealId)
+      - event: DealFinalized(uint64 indexed dealId)
+      - event: DealAmountUpdated(uint64 indexed dealId, uint256 newAmount)
+      - event: DealDurationUpdated(uint64 indexed dealId, uint16 newDuration)
+      - event: DisputeCreated(uint64 indexed dealId, address indexed requester)
+      - event: DisputeResolved(uint64 indexed disputeId, address indexed winner)
+      - event: UserWithdrew(address indexed user, uint256 amount)
+      - event: PaymentDeposited(address indexed user, uint256 amount)
+      - event: AavePoolSet(address indexed pool)
+      - event: NewFeePercent(uint8 newFeePercent)
+      - event: OwnerWithdrawFromAaver(uint256 amount)
+networks:
+  - id: 31337
+    start_block: 1
+    rpc_config:
+      url: http://localhost:8545
+    contracts:
+      - name: MockPYUSD
+        address:
+          - '0x700b6a60ce7eaaea56f065753d8dcb9653dbad35'
+      - name: MockAavePool
+        address:
+          - '0xa15bb66138824a1c7167f5e85b957d04dd34e468'
+      - name: ProtocolContract
+        address:
+          - '0xb19b36b1456e65e3a6d514d3f715f204bd59f431'
+      - name: FactoryContract
+        address:
+          - '0x8ce361602b935680e8dec218b820ff5056beb7af'
+      - name: MarketplaceInstance
+        address:
+          - '0xc19bc969cfc40dff49605aedefc69a74c5aef69e'
+  - id: 11155111
+    start_block: 9469273
+    contracts:
+      - name: MockPYUSD
+        address:
+          - '0x4f8159813ef3f1272ae5d6eace0b0aaf7da736c9'
+      - name: ProtocolContract
+        address:
+          - '0x75451abb756dc8330450b570b2b4c0b2edaf792c'
+      - name: FactoryContract
+        address:
+          - '0x4909aab8af018d87864fdb8a06699cff7e6708c8'
+      - name: MockAavePool
+        address:
+          - '0x75bf8770369f5e8ad97c103fe2d64ea3d3a07136'
+unordered_multichain_mode: true
+preload_handlers: true
